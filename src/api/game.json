@@ -1,0 +1,58 @@
+[
+  {
+    "homeTeam": "Angers",
+    "awayTeam": "PSG",
+    "homeTeamOdd": 15.00,
+    "awayTeamOdd": 1.17,
+    "drawOdd": 7.75
+  },
+  {
+    "homeTeam": "Monaco",
+    "awayTeam": "Guingamp",
+    "homeTeamOdd": 1.40,
+    "awayTeamOdd": 5.00,
+    "drawOdd": 7.25
+  },
+  {
+    "homeTeam": "West Ham",
+    "awayTeam": "Liverpool",
+    "homeTeamOdd": 5.00,
+    "awayTeamOdd": 4.00,
+    "drawOdd": 1.60
+  },
+  {
+    "homeTeam": "Manchester City",
+    "awayTeam": "Arsenal",
+    "homeTeamOdd": 1.40,
+    "awayTeamOdd": 5.00,
+    "drawOdd": 6.75
+  },
+  {
+    "homeTeam": "Juventus",
+    "awayTeam": "Benevento",
+    "homeTeamOdd": 1.03,
+    "awayTeamOdd": 14.00,
+    "drawOdd": 55.00
+  },
+  {
+    "homeTeam": "Lazio",
+    "awayTeam": "Udinese",
+    "homeTeamOdd": 1.23,
+    "awayTeamOdd": 6.00,
+    "drawOdd": 10.00
+  },
+  {
+    "homeTeam": "Real Madrid",
+    "awayTeam": "Las Palmas",
+    "homeTeamOdd": 1.05,
+    "awayTeamOdd": 13.00,
+    "drawOdd": 26.00
+  },
+  {
+    "homeTeam": "FC Barcelone",
+    "awayTeam": "FC Seville",
+    "homeTeamOdd": 1.17,
+    "awayTeamOdd": 7.25,
+    "drawOdd": 12.00
+  }
+]

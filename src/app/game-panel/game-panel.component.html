@@ -1,0 +1,25 @@
+<div class="col-xs-12" *ngFor="let game of games | async">
+
+  <div class="col-xs-4">
+    {{game.homeTeam}}
+    <div class="btn btn-success pull-right" (click)="addToCoupon(game.homeTeam, game.homeTeamOdd)">{{game.homeTeamOdd |
+      number : '1.2-2'}}
+    </div>
+  </div>
+
+  <div class="col-xs-4">
+    Draw
+    <div class="btn btn-success pull-right"
+         (click)="addToCoupon('Draw: '+ game.homeTeam + ' vs ' + game.awayTeam, game.drawOdd)">{{game.drawOdd | number :
+      '1.2-2'}}
+    </div>
+  </div>
+
+  <div class="col-xs-4">
+    {{game.awayTeam}}
+    <div class="btn btn-success pull-right" (click)="addToCoupon(game.homeTeam, game.homeTeamOdd)">{{game.awayTeamOdd |
+      number : '1.2-2'}}
+    </div>
+  </div>
+
+</div>
