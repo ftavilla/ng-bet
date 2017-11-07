@@ -19,4 +19,8 @@ export class CouponComponent implements OnInit {
     this.coupons = this._couponService.coupons;
   }
 
+  removeCoupon(coupon: Coupon) {
+    this._couponService.removeCoupon(coupon);
+  }
+
 }

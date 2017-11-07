@@ -13,7 +13,13 @@ export class CouponService {
   addCoupon(coupon: Coupon) {
     let coupons = this.coupons.getValue();
     coupons.push(coupon);
-    this.coupons.next(this.coupons.getValue());
+    this.coupons.next(coupons);
+  }
+
+  removeCoupon(coupon: Coupon) {
+    let coupons = this.coupons.getValue();
+    coupons.splice(coupons.indexOf(coupon), 1);
+    this.coupons.next(coupons);
   }
 
 }
