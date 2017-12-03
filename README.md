@@ -35,3 +35,7 @@ Creates a state folder under app folder with two states file:
 
 ## Step two
 Create action classes
+
+## Step Three
+Create Reducers
+
