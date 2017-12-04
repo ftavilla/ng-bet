@@ -8,6 +8,8 @@ import {GameService} from "./service/game/game.service";
 import {HttpClientModule} from "@angular/common/http";
 import {CouponComponent} from "./coupon/coupon.component";
 import {CouponService} from "./service/coupon/coupon.service";
+import {StoreModule} from "@ngrx/store";
+import {reducers} from "app/store/reducers/app.reducer";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 
 @NgModule({
@@ -20,7 +22,8 @@ import {StoreDevtoolsModule} from "@ngrx/store-devtools";
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    StoreDevtoolsModule.instrument({maxAge: 25})
+    StoreDevtoolsModule.instrument({maxAge: 25}),
+    StoreModule.forRoot(reducers),
   ]
   ,
   providers: [
