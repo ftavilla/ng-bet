@@ -39,3 +39,5 @@ Create action classes
 ## Step Three
 Create Reducers
 
+## Step four
+Create selector using createFeatureSelector() and createSelector()
