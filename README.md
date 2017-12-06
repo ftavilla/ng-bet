@@ -1,3 +1,33 @@
+## Step One
+Create states. 
+Creates a state folder under app folder with two states file:
+- ng-bet.state.ts
+- app.state.ts
+
+## Step two
+Create action classes
+
+## Step Three
+Create Reducers
+
+## Step four
+Create selector using createFeatureSelector() and createSelector()
+
+## Step Five
+Create an ActionReducerMap
+
+## Step six
+Add StoreModule.forRoot(reducers) in app.module.ts
+
+## Step seven
+Use the store in the application to add coupon
+
+
+
+
+
+
+
 # NgBet
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
@@ -26,18 +56,3 @@ Before running the tests make sure you are serving the app via `ng serve`.
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-
-## Step One
-Create states. 
-Creates a state folder under app folder with two states file:
-- ng-bet.state.ts
-- app.state.ts
-
-## Step two
-Create action classes
-
-## Step Three
-Create Reducers
-
-## Step four
-Create selector using createFeatureSelector() and createSelector()
