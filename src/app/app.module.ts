@@ -22,8 +22,8 @@ import {StoreDevtoolsModule} from "@ngrx/store-devtools";
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    StoreDevtoolsModule.instrument({maxAge: 25}),
     StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument({maxAge: 25}),
   ]
   ,
   providers: [
