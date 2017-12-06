@@ -8,6 +8,7 @@ import {GameService} from "./service/game/game.service";
 import {HttpClientModule} from "@angular/common/http";
 import {CouponComponent} from "./coupon/coupon.component";
 import {CouponService} from "./service/coupon/coupon.service";
+import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {CouponService} from "./service/coupon/coupon.service";
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreDevtoolsModule.instrument({maxAge: 25})
   ]
   ,
   providers: [
