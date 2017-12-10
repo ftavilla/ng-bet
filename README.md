@@ -16,7 +16,7 @@ Redux is based on 3 principles:
 * State can only be changed by pure functions or in another term: Reducers. Redux Reducers take in the previous state and an action object and returns the next state
 
 ## Starting point
-Ng-Bet is a bookmaker application. It provides odds to the customers on different games. The customer can add them to his coupon.
+Ng-Bet is a bookmaker application. It provides odds to the customers on different games. The customer can add them to his coupon. To simplify the application one game equals a single coupon. We do not pay attention to accumulators.
 The main goal here is to use a store when the user add a game to his coupon, retrieve the data and replay all these action using the redux dev tool.
 
 ## Start the application
@@ -25,19 +25,64 @@ Go in the project directory then do a
 npm install
 ```
 and then 
-```javascript
+```
 ng serve
 ```
 
 
 ## Step One
 We want to create states for our application. 
-Creates a state folder under app folder with two states file:
+A state is a single immutable data structure.  
+
+Here is an example of a state:
+```typescript
+export interface MarketPlaceState {
+    selectedCategoryId: number;
+    selectedItem: Item;
+    selectedItemQuantity: number;
+    cart: CartItem[];
+}
+```
+Here is an example of an app.state.ts:
+
+```typescript
+export interface AppState {
+    marketPlace: MarketPlaceState;
+}
+```
+
+Creates a state folder under app > store > states with two file:
 - ng-bet.state.ts
 - app.state.ts
 
+Implement them. 
+Remember we want to track 
+
 ## Step two
-Create action classes
+Once we created our states, we now want to create action classes. An action is the description of a state change.
+We need to create an AddCoupon class implementing Action and define type and payload.  
+Here is an example of an Action class:
+
+```typescript
+
+export const marketPlaceActions = {
+    AddCartItemAction: '[MarketPlace] AddCartItem'
+};
+
+export class AddCartItem implements Action {
+    type: string = marketPlaceActions.AddCartItemAction;
+    payload: MarketPlaceState;
+    constructor(item: CartItem) {
+        this.payload = <MarketPlaceState>{
+            cart: [item]
+        };
+    }
+}
+
+export type MarketPlaceAction = AddCartItem;
+```
+
+Create a ng-bet.actions.ts under app > store > actions file and implement an AddCoupon class in it.
 
 ## Step Three
 Create Reducers
