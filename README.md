@@ -30,15 +30,13 @@ ng serve
 ```
 
 
-## Step One
+## Step 1: States
 We want to create states for our application. 
 A state is a single immutable data structure.  
 
 Here is an example of a state:
 ```typescript
-export interface MarketPlaceState {
-    selectedCategoryId: number;
-    selectedItem: Item;
+export interface ShopState {
     selectedItemQuantity: number;
     cart: CartItem[];
 }
@@ -47,89 +45,144 @@ Here is an example of an app.state.ts:
 
 ```typescript
 export interface AppState {
-    marketPlace: MarketPlaceState;
+    shop: ShopState;
 }
 ```
 
-Creates a state folder under app > store > states with two file:
+Create a app > store > states directory with two file:
 - ng-bet.state.ts
 - app.state.ts
 
 Implement them. 
-Remember we want to track 
+Remember we want to track the coupons state.
 
-## Step two
+## Step 2: Actions
 Once we created our states, we now want to create action classes. An action is the description of a state change.
 We need to create an AddCoupon class implementing Action and define type and payload.  
 Here is an example of an Action class:
 
 ```typescript
 
-export const marketPlaceActions = {
-    AddCartItemAction: '[MarketPlace] AddCartItem'
+export const shopActions = {
+    AddCartItemAction: '[Shop] AddCartItem'
 };
 
 export class AddCartItem implements Action {
-    type: string = marketPlaceActions.AddCartItemAction;
-    payload: MarketPlaceState;
+    type: string = shopActions.AddCartItemAction;
+    payload: ShopState;
     constructor(item: CartItem) {
-        this.payload = <MarketPlaceState>{
+        this.payload = <ShopState>{
             cart: [item]
         };
     }
 }
 
-export type MarketPlaceAction = AddCartItem;
+export type ShopAction = AddCartItem;
 ```
 
 Create a ng-bet.actions.ts under app > store > actions file and implement an AddCoupon class in it.
 
-## Step Three
-Create Reducers
+## Step 3: Reducers
+A reducer is a description of how the application state change for every action. It is just a pure function.
+It will receive the previous state and an action and will produce a new state without changing the previous state.
+Here is an example of a reducer:
+```typescript
+const initialState: ShopState = {
+    selectedItemQuantity: 0,
+    cart: []
+};
 
-## Step four
-Create selector using createFeatureSelector() and createSelector()
+export function shopReducer(state = initialState, action: ShopAction): ShopState {
+    switch (action.type) {
+        case shopActions.UpdateSelectedItemQuantityAction:
+        case shopActions.AddCartItemAction: {
+            return Object.assign({}, state, { cart: [...state.cart, ...action.payload.cart] });
+        }
 
-## Step Five
-Create an ActionReducerMap
+        default:
+            return state;
+    }
+}
+```
 
-## Step six
+Create a app > store > states directory with one file:
+- ng-bet.reducer.ts
+
+Implement it with the action we created earlier. 
+
+## Step 4: Selectors
+A selector is a function that let you extract a specific piece of data from the store.
+Data from the store is only accessed by components through selector functions.
+
+Selectors :
+
+* can compute derived data, allowing Redux to store the minimal possible state.
+* are composable. They can be used as input to other selectors
+
+It is a best practice to use them for multiple reasons such as:  
+
+* It will be way easier to refactore your redux store.
+* It will avoid code duplication (you might have the same code snippet in multiple component).
+* It will be easier to test them.
+
+In the store directory create an app.selectors.ts file.
+
+Create a feature selector named ng-bet using createFeatureSelector().  
+The createFeatureSelector() function creates a feature selector for a state.  
+Here is an example:
+```typescript
+export const getItemState = createFeatureSelector<ShopState>('shop');
+```
+
+Add a getCoupon selector with createSelector()
+The createSelector() function creates a selector to wrap a specific state.
+Here is an example:
+```typescript
+export const getCart = createSelector(getItemState, (state: ShopState) => state.cart);
+```
+
+## Step 5: ActionReducerMap
+ActionReducerMap allow us to register reducers. We usually creates a constant with our reducers in it. 
+
+Create a app.reducer.ts file under app > store > reducers and add a reducers constant using ActionReducerMap.
+
+Here is an example of an app.reducer.ts:
+```typescript
+export const reducers: ActionReducerMap<AppState> = {
+    shop: shopReducer
+};
+```
+
+## Step 6: StoreModule
+StoreModule is a module in @ngrx/store API that is used to configure reducers in application module.
+We will pass our reducers contant we created just before in parameter.
+
 Add StoreModule.forRoot(reducers) in app.module.ts
 
-## Step seven
-Use the store in the application to add coupon
+NB: You can see there already is a StoreDevtoolsModule.instrument({maxAge: 25}) set up in it. Just put StoreModule.forRoot(reducers) **BEFORE** it.
 
+## Step 7: Dispatch
+The dispatch() function dispatches the type of action to reducer.
 
+In game-panel.component.ts, add in the constructor
+```typescript 
+private _store: Store<AppState>
+``` 
+and then use dispatch() to add coupon in the store.
 
+Now you can see your store being changed everytime a new coupon is added! \o/
 
+NB: Don't forget to install the [Redux devTool chrome extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd) before to see what's in your store.
 
+## Step 8: Select
+Coming soon...
 
+## Source 
 
-# NgBet
+About redux:
+* https://redux.js.org/
+* http://www.dotnetcurry.com/reactjs/1356/redux-pattern-tutorial
+* https://medium.com/@itsdavidthai/redux-an-explanation-for-beginners-957f268e7382  
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+About selectors: 
+* https://gist.github.com/abhiaiyer91/aaf6e325cf7fc5fd5ebc70192a1fa170
